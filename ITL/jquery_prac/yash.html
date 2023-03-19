@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<!--Design a website like this. On pressing 'ADD', the dorm comment should 
+	get cleared and added to the top of the large comment box
+-->
+<html>
+  <head>
+    <title>Title According to Image</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#add").click(function () {
+          var comment = $("#comment").val();
+          // text area
+          var previousComment = $("#bigComment").val();
+          // dropdown
+          var dorm = $("#dorm").children("option:selected").val();
+          // checkbox and radio
+          var sel = $('input[type="radio/checkbox"]:checked').val();
+          previousComment = dorm + ":\n" + comment + "\n\n" + previousComment;
+          $("#bigComment").val(previousComment);
+          $("#comment").val("");
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Heading According to Image</h1>
+      <br />
+      <textarea
+        id="bigComment"
+        rows="6"
+        cols="55"
+        disabled="disabled"
+      ></textarea>
+      <br />
+      <table>
+        <tr>
+          <td>Select Dorm:</td>
+          <td>Comment:</td>
+        </tr>
+        <tr>
+          <td>
+            <select id="dorm">
+              <option value="Option 1 in image">Option 1 in image</option>
+              <option value="Option 2 in image">Option 2 in image</option>
+            </select>
+          </td>
+          <td>
+            <textarea id="comment" rows="1" cols="38"></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <button id="add" class="btn btn-outline-success">ADD</button>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

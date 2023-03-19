@@ -1,0 +1,9 @@
+Ram
+Maths 93
+English 95
+CGPA: 9.4"
+Shyam
+Maths 100
+English 91
+CGPA: "9.45"
+CGPA: "9.95"

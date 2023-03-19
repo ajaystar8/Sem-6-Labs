@@ -1,0 +1,57 @@
+<html>
+  <head>
+    <title>Hello world</title>
+    <script
+      src="https://code.jquery.com/jquery-3.6.3.min.js"
+      integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      $(document).ready(function () {
+        $("#submit").click(function () {
+          var name = $("#fname").val();
+          var age = $("#age").val();
+          if (age < 18) {
+            var cost = age * 180;
+            alert("Your ticket cost is " + cost);
+          } else {
+            var cost = age * 250;
+            alert("Your ticket cost is " + cost);
+          }
+        });
+        $("input[")
+      });
+    </script>
+  </head>
+
+  <body>
+    <div class="container">
+      <img
+        class="img-responisve"
+        src="./img.jpeg"
+        alt="an image"
+        height="250px"
+      />
+      <div class="container">
+        <form action="">
+          <label for="fname">First Name:</label><br />
+          <input type="text" id="fname" /><br /><br />
+
+          <label for="lname">Last name: </label><br />
+          <input type="text" id="lname" /><br /><br />
+
+          <label for="age">Age: </label><br />
+          <input type="text" id="age" /><br /><br />
+
+          <p>Select gender:</p>
+          <input type="radio" id="male" value="male" />
+          <label for="male">male</label><br />
+          <input type="radio" id="female" value="female" />
+          <label for="female">female</label><br />
+
+          <input type="submit" value="submit" id="submit" />
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

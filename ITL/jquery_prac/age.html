@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>age</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"></script>
+
+    <script type="text/javascript" language="javascript">
+        $(document).ready(function(){
+            function pricecalc(){
+                var val = $("#age").val()
+                if (val<18){
+                    alert("price: 120000")
+                }
+                else if(val==18){
+                    alert("price: 1400000")
+                }
+                else{
+                    alert('price: 100000000000')
+                }
+            }
+              $('#btn').click(function(){
+                pricecalc()
+              })
+        })
+    </script>
+</head>
+<body>
+    <div class="container">
+         <form action="#">
+            <label for="name">Enter your name</label>
+            <input type="text" id="name"></input><br>
+            <br>
+            <label for="adhar">Enter your adhar number</label>
+            <input type="number" id="adharnumber"></input>
+             <br>
+             <br>
+             <label for="age">Enter your age</label>
+             <input type="number" id="age" ></input>
+             <br>
+             <br>
+             <input type="button" value="click me" id="btn">
+         </form>
+    </div>
+</body>
+</html>

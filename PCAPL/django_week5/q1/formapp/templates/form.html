@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student-Form</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+        function summarize(){
+            var name = document.getElementById("name").value;
+            var dob = document.getElementById("dob").value;
+            var addr = document.getElementById("addr").value;
+            var contact = document.getElementById("contact").value;
+            var email = document.getElementById("email").value;
+            var phymarks = document.getElementById("pm").value;
+            var chemmarks = document.getElementById("cm").value;
+            var mathmarks = document.getElementById("mm").value;
+            var total = parseInt(phymarks) + parseInt(chemmarks) + parseInt(mathmarks);
+            total = total / 3;
+            document.getElementById("summary").innerHTML = name + " born on " + dob + " living in " + addr + " who can be contacted on the number " + contact + " or through email on " + email + " has scored an average marks of " + total + " marks.";
+        }
+    </script>
+    <form action="#">
+      <label for="name">Name: </label><br />
+      <input type="text" id="name" /><br />
+      <label for="dob">Date of Birth: </label><br />
+      <input type="text" id="dob" /><br />
+      <label for="addr">Address:</label><br>
+      <textarea id="addr" rows="4" cols="50" /></textarea><br /><br>
+      <label for="contact">Contact Number:</label><br>
+      <input type="number" id="contact" /><br />
+      <label for="email">Email:</label><br>
+      <input type="text" id="email" /><br />
+      <label for="pm">Physics score: </label><br>
+      <input type="number" id="pm"/><br />
+      <label for="cm">Chemistry score: </label><br>
+      <input type="number" id="cm" /><br />
+      <label for="mm">Maths score: </label><br>
+      <input type="number" id="mm" /><br /><br>
+      <button onclick="summarize()">Submit</button>
+    </form>
+    <p id="summary"></p>
+  </body>
+</html>

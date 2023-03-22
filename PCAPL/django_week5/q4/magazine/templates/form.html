@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Magazine Maker</title>
+    <style>
+        body {
+          font-family: Arial, sans-serif;
+        }
+        .cover {
+          width: 800px;
+          height: 1000px;
+          background-color: #ffffff;
+          border: 1px solid #000000;
+          margin: 0 auto;
+        }
+        .cover img {
+          max-width: 100%;
+          max-height: 100%;
+          object-fit: contain;
+        }
+        .form {
+          margin: 20px;
+        }
+        label {
+          display: block;
+          margin-bottom: 10px;
+        }
+      </style>
+  </head>
+  <body>
+    <div class="form">
+        <h1>Magazine Front Cover Generator</h1>
+        <form>
+         <label for="title">Magazine Title: </label>
+          <input type="text" id="title"><br>
+
+          <label for="image">Image URL:</label>
+          <input type="text" id="image">
+          
+          <label for="background-color">Background Color:</label>
+          <input type="color" id="background-color" value="#ffffff"><br>
+          
+          <label for="font-size">Font Size:</label>
+          <input type="number" id="font-size" value="16">
+          
+          <label for="font-color">Font Color:</label>
+          <input type="color" id="font-color" value="#000000">
+          
+          <button type="button" onclick="generateCover()">Generate Cover</button>
+        </form>
+      </div>
+      
+      <div class="cover" id = "mag-cover">
+        <img id="cover-image" src="" alt = "img">
+        <h1 id="cover-title">Magazine Title</h1>
+      </div>
+      
+      <script>
+        function generateCover() {
+          var imageUrl = document.getElementById("image").value;
+          var backgroundColor = document.getElementById("background-color").value;
+          var fontSize = document.getElementById("font-size").value;
+          var fontColor = document.getElementById("font-color").value;
+          var title = document.getElementById("title").value; 
+          
+          var coverImage = document.getElementById("cover-image");
+          var coverTitle = document.getElementById("cover-title");
+          
+          coverImage.src = imageUrl;
+          coverTitle.innerHTML = title; 
+          coverTitle.style.fontSize = fontSize + "px";
+          coverTitle.style.color = fontColor;
+          document.getElementById("mag-cover").style.backgroundColor = backgroundColor;
+        }
+      </script>
+    </body>
+  </body>
+</html>

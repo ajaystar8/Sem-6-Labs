@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employee</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      function promotion() {
+        var empid = document.getElementById("emp").value;
+        var doj = parseInt(document.getElementById("doj").value);
+        var res;
+        if (2023 - doj >= 5)
+          res = empid + ", you are eligible for promotion!! ";
+        else res = empid + ", you are not yet eligible for promotion :( ";
+        document.getElementById("result").innerHTML = res;
+      }
+    </script>
+    <form action="#">
+      <label for="emp">Employee ID:</label><br /><br />
+      <select id="emp">
+        <option value="120113560">120113560</option>
+        <option value="120113562">120113562</option>
+        <option value="120113564">120113564</option>
+        <option value="120113566">120113566</option>
+      </select>
+      <br /><br />
+      <label for="doj">Year of joining: </label><br /><br />
+      <input type="number" id="doj" /><br /><br /><br />
+      <input type="submit" value="Submit" onclick="promotion()" />
+    </form>
+    <p id="result" style="margin: 100px"></p>
+  </body>
+</html>

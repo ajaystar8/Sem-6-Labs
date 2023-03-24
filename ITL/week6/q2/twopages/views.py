@@ -21,4 +21,4 @@ def display(request):
         request.session['name'] = name
         request.session['roll'] = roll
         request.session['subject'] = subject
-    return render(request, 'display.html', {'form': student_info, 'name': name, 'roll': roll, 'subject': subject})
+    return render(request, 'display.html', {'name': name, 'roll': roll, 'subject': subject})

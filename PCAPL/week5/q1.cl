@@ -1,12 +1,18 @@
-__kernel void octal_convert(__global int *A, __global int *B){
-    int i = get_global_id(0);
-    int dec = A[i];
-    int oct = 0, r , p = 1;
-    while(dec){
-        r = dec % 8; 
-        oct += p*r;
-        dec /= 8;
-        p *= 10; 
+__kernel void deciToOct( __global int *A,__global int *B)
+{
+	// Get the index of the current work item
+	int tid = get_global_id(0);
+	
+	// Do the operation
+	int num = A[tid];
+	int pow=1,rem,octal=0;
+	
+	while (num!= 0) 
+	{
+        rem = num % 8;
+        octal += rem*pow;
+        pow = pow * 10;
+        num /= 8;
     }
-    B[i] = oct; 
+	B[tid]=octal;
 }

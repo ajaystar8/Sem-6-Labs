@@ -16,18 +16,19 @@ int main(void)
 	
 	int *A = (int*) malloc (sizeof (int) * LIST_SIZE);
 	//Initialize the input vectors
-
-	printf("Enter the binary elements:\n");
 	for(i = 0; i < LIST_SIZE; i++)
 	{
-		scanf("%d",&A[i]);
+		A[i] = LIST_SIZE-i; //if LIST_SIZE is very large
 	}
+	printf("Input array:\n");
+	for(i = 0; i < LIST_SIZE; i++)
+		printf("%d\t",A[i]);
 	
 	// Load the kernel source code into the array source_str
 	FILE *fp;
 	char *source_str;
 	size_t source_size;
-	fp = fopen("q2.cl", "r");
+	fp = fopen("q3.cl", "r");
 	if (!fp)
 	{
 		fprintf(stderr, "Failed to load kernel.\n");
@@ -54,9 +55,8 @@ int main(void)
 	cl_command_queue command_queue = clCreateCommandQueue(context,device_id,0,&ret);
 	
 	// Create memory buffers on the device for each vector A, B and C
-	cl_mem a_mem_obj = clCreateBuffer(context, CL_MEM_READ_ONLY,LIST_SIZE *sizeof(int), NULL, &ret);
-	cl_mem b_mem_obj = clCreateBuffer(context, CL_MEM_WRITE_ONLY,LIST_SIZE *sizeof(int), NULL, &ret);
-	
+	cl_mem a_mem_obj = clCreateBuffer(context, CL_MEM_READ_WRITE,LIST_SIZE *sizeof(int), NULL, &ret);
+
 	// Copy the lists A and B to their respective memory buffers
 	ret = clEnqueueWriteBuffer(command_queue, a_mem_obj, CL_TRUE, 0,LIST_SIZE *sizeof(int), A, 0, NULL, NULL);
 	
@@ -64,16 +64,17 @@ int main(void)
 	cl_program program = clCreateProgramWithSource(context, 1, (const char**)&source_str, (const size_t *)&source_size, &ret);
 	
 	// Build the program
-	printf("Host error code: %d\n",ret);
+	printf("\nHost error code: %d\n",ret);
 	ret = clBuildProgram(program, 1, &device_id, NULL, NULL, NULL);
 	printf("Kernel error code: %d\n",ret);
 	
 	// Create the OpenCL kernel object
-	cl_kernel kernel = clCreateKernel(program, "complement", &ret);
-	
+	cl_kernel kernel1 = clCreateKernel(program, "odd", &ret);
+ 	cl_kernel kernel2 = clCreateKernel(program, "even", &ret);  
+
 	// Set the arguments of the kernel
-	ret = clSetKernelArg(kernel, 0, sizeof(cl_mem), (void *)&a_mem_obj);
-	ret = clSetKernelArg(kernel, 1, sizeof(cl_mem), (void *)&b_mem_obj);
+	ret = clSetKernelArg(kernel1, 0, sizeof(cl_mem), (void *)&a_mem_obj);
+	ret = clSetKernelArg(kernel2, 0, sizeof(cl_mem), (void *)&a_mem_obj);
 	
 	
 	// Execute the OpenCL kernel on the array
@@ -82,28 +83,29 @@ int main(void)
 	
 	//Execute the kernel on the device
 	cl_event event;
-	ret = clEnqueueNDRangeKernel(command_queue, kernel, 1, NULL, &global_item_size,&local_item_size, 0, NULL, NULL);
-	ret = clFinish(command_queue);
-	
-	// Read the memory buffer C on the device to the local variable C
-	int *B = (int*)malloc(sizeof(int)*LIST_SIZE);
-	ret = clEnqueueReadBuffer(command_queue, b_mem_obj, CL_TRUE, 0,LIST_SIZE *sizeof(int), B, 0, NULL, NULL);
-	
+	for(int i=0;i<=LIST_SIZE/2;i++)
+	{
+		ret = clEnqueueNDRangeKernel( command_queue, kernel1, 1, NULL, &global_item_size,NULL, 0, NULL, NULL);
+		ret = clEnqueueNDRangeKernel( command_queue, kernel2, 1, NULL, &global_item_size,NULL, 0, NULL, NULL);
+	}			   
+	clEnqueueReadBuffer( command_queue,a_mem_obj, CL_TRUE, 0,LIST_SIZE*sizeof(int), A, 0, NULL, NULL);
+
 	// Display the result to the screen
+
+	printf("Output array:\n");
 	for(i = 0; i < LIST_SIZE; i++)
-		printf("binary: %d -> complement: %d\n",A[i],B[i]);
+		printf("%d\t",A[i]);
 		
 	
 	// Clean up
 	ret = clFlush(command_queue);
-	ret = clReleaseKernel(kernel);
+	ret = clReleaseKernel(kernel1);
+	ret = clReleaseKernel(kernel2);
 	ret = clReleaseProgram(program);
 	ret = clReleaseMemObject(a_mem_obj);
-	ret = clReleaseMemObject(b_mem_obj); 
 	ret = clReleaseCommandQueue(command_queue); 
 	ret = clReleaseContext(context);
 	free(A);
-	free(B);
 	
 	getchar();
 	return 0;

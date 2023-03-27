@@ -27,7 +27,7 @@ int main(void)
 	FILE *fp;
 	char *source_str;
 	size_t source_size;
-	fp = fopen("q2.cl", "r");
+	fp = fopen("q4.cl", "r");
 	if (!fp)
 	{
 		fprintf(stderr, "Failed to load kernel.\n");
@@ -69,7 +69,7 @@ int main(void)
 	printf("Kernel error code: %d\n",ret);
 	
 	// Create the OpenCL kernel object
-	cl_kernel kernel = clCreateKernel(program, "complement", &ret);
+	cl_kernel kernel = clCreateKernel(program, "binTodeci", &ret);
 	
 	// Set the arguments of the kernel
 	ret = clSetKernelArg(kernel, 0, sizeof(cl_mem), (void *)&a_mem_obj);
@@ -91,7 +91,7 @@ int main(void)
 	
 	// Display the result to the screen
 	for(i = 0; i < LIST_SIZE; i++)
-		printf("binary: %d -> complement: %d\n",A[i],B[i]);
+		printf("binary: %d -> decimal: %d\n",A[i],B[i]);
 		
 	
 	// Clean up

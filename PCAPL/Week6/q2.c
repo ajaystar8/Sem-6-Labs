@@ -16,11 +16,9 @@ int main(void)
 	
 	int *A = (int*) malloc (sizeof (int) * LIST_SIZE);
 	//Initialize the input vectors
-
-	printf("Enter the binary elements:\n");
 	for(i = 0; i < LIST_SIZE; i++)
 	{
-		scanf("%d",&A[i]);
+		A[i] = LIST_SIZE-i; //if LIST_SIZE is very large
 	}
 	
 	// Load the kernel source code into the array source_str
@@ -69,7 +67,7 @@ int main(void)
 	printf("Kernel error code: %d\n",ret);
 	
 	// Create the OpenCL kernel object
-	cl_kernel kernel = clCreateKernel(program, "complement", &ret);
+	cl_kernel kernel = clCreateKernel(program, "selection", &ret);
 	
 	// Set the arguments of the kernel
 	ret = clSetKernelArg(kernel, 0, sizeof(cl_mem), (void *)&a_mem_obj);
@@ -90,8 +88,14 @@ int main(void)
 	ret = clEnqueueReadBuffer(command_queue, b_mem_obj, CL_TRUE, 0,LIST_SIZE *sizeof(int), B, 0, NULL, NULL);
 	
 	// Display the result to the screen
+
+	printf("Input array:\n");
 	for(i = 0; i < LIST_SIZE; i++)
-		printf("binary: %d -> complement: %d\n",A[i],B[i]);
+		printf("%d\t",A[i]);
+		
+	printf("\nResultant array:\n");
+	for(i = 0; i < LIST_SIZE; i++)
+		printf("%d\t",B[i]);
 		
 	
 	// Clean up

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Store</title>
+  </head>
+  <body>
+    <form action="add/" method="POST">
+      {% csrf_token %}
+      <h2>Author</h2>
+      {{author_form.as_p}}
+      <br />
+      <h2>Book</h2>
+      {{book_form.as_p}}
+      <br />
+      <h2>Publisher</h2>
+      {{publisher_form.as_p}}
+      <br />
+      <input type="submit" />
+    </form>
+    <hr />
+    <h2>Authors:</h2>
+    {% for author in authors %}
+    <h2>{{ author.fname }} {{ author.lname }}</h2>
+    <p>email : {{ author.email }}</p>
+    <hr />
+    {% endfor %}
+    <br /><br />
+    <hr />
+    <hr />
+    <h2>Books:</h2>
+    {% for book in books %}
+    <h2>{{ book.title }}</h2>
+    <p>date : {{ book.date }}</p>
+    <h3>authors : {{ book.authors }}</h3>
+    <h3>publisher : {{ book.publisher }}</h3>
+    <hr />
+    {% endfor %}
+    <br /><br />
+    <hr />
+    <hr />
+    <h2>publishers</h2>
+    {% for pub in publishers %}
+    <h2>{{ pub.name }}</h2>
+    <p>
+      address : {{ pub.street }}, {{ pub.city }}, {{ pub.state }}, {{
+      pub.country }}
+    </p>
+    <p>Website : {{ pub.website }}</p>
+    <hr />
+    {% endfor %}
+    <br /><br />
+    <hr />
+    <hr />
+    <h2></h2>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employee Portal</title>
+  </head>
+  <body>
+    <form action="add/" method="POST">
+      {% csrf_token %} {{form.as_p}}
+      <input type="submit" />
+    </form>
+    <h4>Enter company name to filter based on company:</h4>
+    <br />
+    <form action="get/" method="POST">
+      {% csrf_token %}
+      <input type="text" name="company" />
+      <input type="submit" />
+    </form>
+
+    <hr />
+    <br />
+
+    <h3>Employee Details</h3>
+    {% for emp in emp_list %}
+    <h2>{{emp.name}}</h2>
+    <p>company: {{emp.company}}</p>
+    <p>salary: {{emp.salary}}</p>
+    <p>street: {{emp.street}}</p>
+    <p>city: {{emp.city}}</p>
+    <hr />
+    {% endfor %}
+  </body>
+</html>

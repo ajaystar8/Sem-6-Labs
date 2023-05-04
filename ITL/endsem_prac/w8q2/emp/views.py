@@ -7,15 +7,16 @@ from django.http import HttpResponse
 def index(request):
     new_works_form = WorksModelForm()
     new_lives_form = LivesModelForm()
-    works_list = WorksModel.objects.all()
     if request.method == "POST":
         works_form = WorksModelForm(request.POST)
         lives_form = LivesModelForm(request.POST)
         if works_form.is_valid() and lives_form.is_valid():
             works_form.save()
             lives_form.save()
+        works_list = WorksModel.objects.all()    
         return render(request, "index.html", {'work_form':new_works_form, 'live_form':new_lives_form, 'works_list':works_list})
     else: 
+        works_list = WorksModel.objects.all()    
         return render(request, "index.html", {'work_form':new_works_form, 'live_form':new_lives_form, 'works_list':works_list})
     
 def get(request):

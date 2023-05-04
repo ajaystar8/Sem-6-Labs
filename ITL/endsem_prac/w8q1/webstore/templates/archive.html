@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Webstore</title>
+  </head>
+  <body>
+    <h1>Welcome to the Webstore.</h1>
+    <br />
+    <h2>Category Table</h2>
+    <br />
+    {% for cat in categories %}
+    <p>Name = {{cat.name}}</p>
+    <br />
+    <p>Number of Visits = {{cat.visits}}</p>
+    <br />
+    <p>Number of Likes = {{cat.likes}}</p>
+    <br />
+    {% endfor %}
+    <br />
+    <hr />
+    <h2>Page Table</h2>
+    <br />
+    {% for page in pages %}
+    <p>Category = {{page.category}}</p>
+    <br />
+    <p>Title = {{page.title}}</p>
+    <br />
+    <p>URL = {{page.url}}</p>
+    <br />
+    <p>Number of Views = {{page.views}}</p>
+    <br />
+    {% endfor %}
+  </body>
+</html>

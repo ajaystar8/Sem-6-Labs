@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Employee Portal</title>
+  </head>
+  <body>
+    <h1>Employee Portal</h1>
+    <form action="" method="post">
+      {% csrf_token %}
+      <table>
+        {{work_form.as_p}}
+      </table>
+      <table>
+        {{live_form.as_p}}
+      </table>
+      <input type="submit" />
+    </form>
+    <h2>Employee Details</h2>
+    {% for emp in works_list %}
+    <h2>{{emp.pname}}</h2>
+    <p>company: {{emp.cname}}</p>
+    <p>salary: {{emp.salary}}</p>
+    <p>street: {{emp.empid.street}}</p>
+    <p>city: {{emp.empid.city}}</p>
+    <hr />
+    {% endfor %}
+    <h2>Employee Search Based on Company Name</h2>
+    <form action="get" method="post">
+      {% csrf_token %}
+      <input type="text" name="cname" />
+      <input type="submit" />
+    </form>
+  </body>
+</html>

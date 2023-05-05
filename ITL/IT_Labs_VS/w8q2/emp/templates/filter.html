@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Add Books</title>
+</head>
+<body>
+    <h2>Filtered Employees</h2>
+    {% for emp in emps %}
+    <p>Employee Name: {{emp.pname}}</p>
+    {% for lives in emp.livesmodel_set.all %}
+    <p>Street: {{lives.street}}</p>
+    <p>City: {{lives.city}}</p>
+    {% endfor %}
+    <hr />
+    {% endfor %}
+</body>
+</html>

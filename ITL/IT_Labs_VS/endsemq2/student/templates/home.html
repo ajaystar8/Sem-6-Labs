@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Home</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js" ></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <form action="/display/">
+        <button type="submit" class="btn btn-primary">Student List</button>
+    </form>
+    <nav class="navbar">
+      <form class="form-inline" action="/filter/" method="post">
+        {% csrf_token %}
+        <input class="form-control" type="search" name="regno">
+        <button class="btn btn-success" type="submit">Search</button>
+      </form>
+    </nav>
+    <h1>Add students</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{new_form.as_p}}
+        <input type="submit"/>
+    </form>
+</body>
+</html>

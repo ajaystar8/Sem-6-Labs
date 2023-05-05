@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Add Books</title>
+</head>
+<body>
+    <h1>Book Store Management System</h1>
+    <h2>Issue Book</h2>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{new_form.as_p}}
+        <input type="submit" />
+    </form>
+    <h2>Search Book Name by Issuer: </h2>
+    <form action="/filter_issuer/" method="post">
+        {% csrf_token %}
+        <input type="text" name="iname" />
+        <input type="submit" />
+    </form> 
+    <h2>Available Books</h2>
+    {% for book in issued_books %}
+    <p>Book Name: {{book.bname}}</p>
+    <p>Issuer Name: {{book.iname}}</p>
+    <button type="submit"><a href="/deleteIssuer/{{book.iname}}">delete</a></button>
+    <hr />
+    {% endfor %}
+</body>
+</html>

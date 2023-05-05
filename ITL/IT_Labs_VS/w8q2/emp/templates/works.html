@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Add Books</title>
+</head>
+<body>
+    <h1>Employee Management System</h1>
+    <h2>Add Employee</h2>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{new_form.as_p}}
+        <input type="submit" />
+    </form>
+    <h2>Search Employee by Company Name: </h2>
+    <form action="/filter/" method="post">
+        {% csrf_token %}
+        <input type="text" name="cname" />
+        <input type="submit" />
+    </form> 
+    <h2>Employees</h2>
+    {% for emp in emps %}
+    <!--emp object is from the WorksModel-->
+    <p>Employee Name: {{emp.pname}}</p>
+    <p>Company: {{emp.cname}}</p>
+    <p>Salary: {{emp.salary}}</p>
+    <!--Parent Table TO Child Table (Table containing the Foreign Key)-->
+    <!--This is a reverse relation-->
+    <!--See the syntax used to perform the reverse relaation-->
+    {% for lives in emp.livesmodel_set.all %}
+    <p>Street: {{lives.street}}</p>
+    <p>City: {{lives.city}}</p>
+    {% endfor %}
+    <hr />
+    {% endfor %}
+</body>
+</html>

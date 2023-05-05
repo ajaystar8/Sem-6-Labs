@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Add Books</title>
+</head>
+<body>
+    <h1>Employee Management System</h1>
+    <h2>Add Employee</h2>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{new_form.as_p}}
+        <input type="submit" />
+    </form>
+    <h2>Employees</h2>
+    <!--Child Table (Table containing the Foreign key) TO Parent Table-->
+    <!--Access parent table attributes using foreign key of child table-->
+    {% for emp in emps %}
+    <p>Employee Name: {{emp.empid.pname}}</p>
+    <p>Company: {{emp.empid.cname}}</p>
+    <p>Salary: {{emp.empid.salary}}</p>
+    <p>Street: {{emp.street}}</p>
+    <p>City: {{emp.city}}</p>
+    <hr />
+    {% endfor %}
+</body>
+</html>

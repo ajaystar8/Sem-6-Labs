@@ -5,7 +5,7 @@
 __global__ void matrixAddRow(int *d_mat1, int *d_mat2, int *d_ans, int m, int n) {
 	int tid=blockIdx.x;
 	for(int i=0; i<n; i++)
-		d_ans[tid*m+i] = d_mat1[tid*m+i] + d_mat2[tid*m+i];
+		d_ans[tid*n+i] = d_mat1[tid*n+i] + d_mat2[tid*n+i];
 }
 
 __global__ void matrixAddCol(int *d_mat1, int *d_mat2, int *d_ans, int m, int n) {

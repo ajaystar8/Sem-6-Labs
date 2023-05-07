@@ -3,57 +3,60 @@
 #include "cuda_runtime.h"
 #include "device_launch_parameters.h"
 
-// n,m,1
-__global__ void matrixOperation(int *d_a, int *d_b, int m, int n){
-    int rid = threadIdx.y;
-    int cid = threadIdx.x;
+// <<< (1,1,1), (n,m,1) >>>
+__global__ void kernelOperation(int *d_a, int *d_b, int m, int n){
+    int row = threadIdx.y; 
+    int col = threadIdx.x; 
     int sum = 0;
-    if(rid < m && cid < n){
-        for(int k = 0; k < n; k++)
-            sum += d_a[rid * n + k];
-        for(int k = 0; k < m; k++)
-            sum += d_a[k * n + cid];
-        sum -= d_a[rid * n + cid];
-    }
-    d_b[rid * n + cid] = sum;
+    // col sum
+    for(int i = 0; i < m; i++)
+        sum += d_a[i * n + col];
+    // row sum
+    for(int i = 0; i < n; i++)
+        sum += d_a[row * n + i];
+    d_b[row*n + col] = sum;
 }
 
 int main(){
-    int *a, *d_a, *b, *d_b, m, n;
-    
-    printf("Enter m: ");
-    scanf("%d", &m); 
+    int *a, *b, *d_a, *d_b, m, n, size; 
 
-    printf("Enter n: ");
-    scanf("%d", &n);
+    printf("Enter m & n: ");
+    scanf("%d %d", &m, &n);
 
-    int size = m*n*sizeof(int);
+    size = m*n*sizeof(int);
 
-    a = (int *)malloc(size);
-    b = (int *)malloc(size);
+    a = (int *)malloc(m*n*sizeof(int));
+    b = (int *)malloc(m*n*sizeof(int));
 
-    printf("Enter the input matrix: ");
+    printf("Enter elements of matrix: ");
     for(int i = 0; i < m*n; i++)
         scanf("%d", &a[i]);
-    
+
     cudaMalloc((void **)&d_a, size);
     cudaMalloc((void **)&d_b, size);
 
     cudaMemcpy(d_a, a, size, cudaMemcpyHostToDevice);
 
+    dim3 dimGrid(1,1,1);
     dim3 dimBlock(n,m,1);
-    matrixOperation <<<1, dimBlock>>> (d_a, d_b, m, n);
+    kernelOperation <<<dimGrid, dimBlock>>> (d_a, d_b, m, n);
 
     cudaMemcpy(b, d_b, size, cudaMemcpyDeviceToHost);
 
     printf("Resultant Matrix: \n");
-
     for(int i = 0; i < m; i++){
         for(int j = 0; j < n; j++)
-            printf("%d\t", b[i*n + j]); 
+            printf("%d ", b[i*n + j]);
         printf("\n");
     }
+
+    cudaFree(d_a);
+    cudaFree(d_b);
 
     return 0; 
 }
 
+/*
+1 2 3
+4 5 6
+*/
